@@ -1,0 +1,28 @@
+[
+  {
+    "authorId": "USER_ID_STUDENT_1",
+    "title": "Impact of AI on Modern Journalism",
+    "content": "Artificial Intelligence is reshaping the media landscape...",
+    "status": "draft",
+    "version": 1,
+    "tags": ["AI", "journalism", "technology"],
+    "history": [],
+    "createdAt": "2025-01-05T12:00:00Z"
+  },
+  {
+    "authorId": "USER_ID_STUDENT_2",
+    "title": "How Social Media Affects News Consumption",
+    "content": "Social networks have become a primary source of information...",
+    "status": "submitted",
+    "version": 2,
+    "tags": ["media", "social", "news"],
+    "history": [
+      {
+        "version": 1,
+        "content": "Social networks have become a primary source of information...",
+        "updatedAt": "2025-01-06T11:00:00Z"
+      }
+    ],
+    "createdAt": "2025-01-06T12:00:00Z"
+  }
+]
