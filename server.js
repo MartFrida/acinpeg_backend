@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { connectDB } from "./src/config/db.js";
-
+import cookieParser from 'cookie-parser';
 
 import articleRoutes from './src/routes/articleRouter.js';
 import authRoutes from './src/routes/authRouter.js';
@@ -12,10 +12,9 @@ connectDB();
 
 const app = express();
 
-
 app.use(cors());
 app.use(express.json());
-
+app.use(cookieParser());
 
 // Healthcheck
 app.get('/ping', (req, res) => res.json({ status: 'ok' }));
