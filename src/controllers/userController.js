@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken';
 const JWT_SECRET = process.env.JWT_SECRET || 'supersecret';
 const JWT_EXPIRES_IN = '1d'; // срок действия токена
 
-export const createUser = async (req, res) => {
+export const createUser = async (req, res, next) => {
   try {
     const {username, useremail, password, role} = req.body;
 
@@ -22,24 +22,34 @@ export const createUser = async (req, res) => {
       role,
     });
 
-    res.json (user);
+     res.status(201).json({
+      message: 'User created successfully',
+      user: {
+        id: user._id,
+        username: user.username,
+        useremail: user.useremail,
+        role: user.role,
+      },
+    });
+    
   } catch (error) {
     next (error);
   }
 };
 
-export const getUsers = async (req, res) => {
+export const getUsers = async (req, res, next) => {
   try {
-    const users = await User.find ();
+    const users = await User.find().select('-password');;
     res.json (users);
   } catch (error) {
-    res.status (500).json ({error: error.message});
+    next (error);
   }
 };
 
 export const loginUser = async (req, res,next) => {
   try {
     const {useremail, password} = req.body;
+
     const user = await User.findOne ({useremail});
     if (!user) throw HttpError (404, 'User not found');
 
@@ -73,14 +83,8 @@ export const loginUser = async (req, res,next) => {
 // GET CURRENT USER
 export const getCurrentUser = async (req, res, next) => {
   try {
-    const token = req.cookies.token;
-    if (!token) throw HttpError(401, 'Not authorized');
-
-    const decoded = jwt.verify(token, JWT_SECRET);
-    const user = await User.findById(decoded.id).select('-password');
-    if (!user) throw HttpError(404, 'User not found');
-
-    res.json(user);
+    // req.user приходит из middleware auth
+        res.json(req.user);
   } catch (error) {
     next(error);
   }
