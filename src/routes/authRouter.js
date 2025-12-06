@@ -5,8 +5,8 @@ import bcrypt from 'bcryptjs';
 import {getUsers, createUser} from '../controllers/userController.js';
 
 const authRouter = Router ();
-const router = Router ();
-router.get ('/', getUsers);
+
+authRouter.get ('/', getUsers);
 
 // Register
 authRouter.post ('/register', createUser);

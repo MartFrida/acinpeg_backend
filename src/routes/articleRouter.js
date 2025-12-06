@@ -23,6 +23,7 @@ res.json(articles);
 });
 
 articlesRouter.get('/debug/count', async (req, res) => {
+   console.log("COUNT ROUTE HIT");
   const count = await Article.countDocuments();
   res.json({ count });
 });
